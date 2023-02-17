@@ -827,7 +827,9 @@ void AudioClient::stop() {
     // Destruction of the pointers will occur when the parent object (this) is destroyed)
     {
         Lock lock(_checkDevicesMutex);
-        _checkDevicesTimer->stop();
+        if (_checkDevicesTimer != nullptr) {
+            _checkDevicesTimer->stop();
+        }
         _checkDevicesTimer = nullptr;
     }
     {

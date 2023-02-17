@@ -14,8 +14,9 @@ ANDROID_PACKAGE_URL = 'https://cdn-1.vircadia.com/eu-c-1/vircadia-public/depende
 
 ANDROID_PACKAGES = {
     'qt' : {
-        'file': 'qt-5.11.1_linux_armv8-libcpp_openssl_patched.tgz',
-        'checksum': 'aa449d4bfa963f3bc9a9dfe558ba29df',
+        'baseUrl': 'http://kuro.ryuu.eu/public/vircadia/dependencies/',
+        'file': 'qt-5.12.3_linux_armv8-libcpp_openssl.tgz',
+        'checksum': '1a9e86c0b1df92b2f5c81bd9a488aa46',
     },
     'bullet': {
         'file': 'bullet-2.88_armv8-libcpp.tgz',
@@ -34,8 +35,9 @@ ANDROID_PACKAGES = {
         'checksum': '57fd02baa069176ba18597a29b6b4fc7',
     },
     'nvtt': {
-        'file': 'nvtt_armv8-libcpp.zip',
-        'checksum': 'eb46d0b683e66987190ed124aabf8910',
+        'baseUrl': 'http://kuro.ryuu.eu/public/vircadia/dependencies/',
+        'file': 'nvtt-2.1.0_armv8-libcpp.tgz',
+        'checksum': 'ad202383083686241dbb20e3c8db08ca',
         'sharedLibFolder': 'lib',
         'includeLibs': ['libnvtt.so', 'libnvmath.so', 'libnvimage.so', 'libnvcore.so']
     },
@@ -52,8 +54,11 @@ ANDROID_PACKAGES = {
         'includeLibs': ['libovrplatformloader.so']
     },
     'openssl': {
-        'file': 'openssl-1.1.0g_armv8.tgz',
-        'checksum': 'cabb681fbccd79594f65fcc266e02f32'
+        'baseUrl': 'http://kuro.ryuu.eu/public/vircadia/dependencies/',
+        'file': 'openssl-1.1.1t_armv8.tgz',
+        'checksum': '72d8abd98ade50f0a6a0790a2f22beac',
+        'sharedLibFolder': 'lib',
+        'includeLibs': ['libcrypto_1_1.so', 'libssl_1_1.so']
     },
     'polyvox': {
         'file': 'polyvox_armv8-libcpp.tgz',

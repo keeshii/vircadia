@@ -56,6 +56,6 @@
     <dimen name="login_edit_text_padding">14dp</dimen>
     <dimen name="profile_margin_top">20dp</dimen>
     <dimen name="profile_margin">35dp</dimen>
-    <dimen name="profile_margin_avatars_top">40dp</dimen>
+    <dimen name="profile_margin_avatars_top">80dp</dimen>
     <dimen name="profile_margin_avatars_bottom">70dp</dimen>
 </resources>

@@ -106,6 +106,12 @@ public class UserStoryDomainProvider implements DomainProvider {
             @Override
             public void onResponse(Call<UserStories> call, Response<UserStories> response) {
                 UserStories data = response.body();
+                if (data == null) {
+                    data = new UserStories();
+                    data.current_page = 1;
+                    data.total_pages = 1;
+                    data.user_stories = new ArrayList<>();
+                }
                 userStoriesList.addAll(data.user_stories);
                 if (data.current_page < data.total_pages && data.current_page <= MAX_PAGES_TO_GET) {
                     getUserStoryPage(pageNumber + 1, userStoriesList, tagsFilter, restOfPagesCallback);

@@ -23,6 +23,8 @@ public class ProfileFragment extends Fragment {
 
     private TextView mDisplayName;
 
+    private TextView mAvatarUrl;
+
     private Button mOkButton;
     private OnProfileInteractionListener mListener;
     private AvatarProvider mAvatarsProvider;
@@ -49,6 +51,9 @@ public class ProfileFragment extends Fragment {
         mDisplayName.setText(getDisplayName());
         mDisplayName.setOnEditorActionListener((textView, actionId, keyEvent) -> onDisplayNameEditorAction(textView, actionId, keyEvent));
 
+        mAvatarUrl = rootView.findViewById(R.id.avatarUrl);
+        mAvatarUrl.setOnEditorActionListener((textView, actionId, keyEvent) -> onDisplayNameEditorAction(textView, actionId, keyEvent));
+
         mOkButton = rootView.findViewById(R.id.okButton);
         mOkButton.setOnClickListener(view -> onOkButtonClicked());
 
@@ -74,6 +79,10 @@ public class ProfileFragment extends Fragment {
 
     private void onOkButtonClicked() {
         setDisplayName(mDisplayName.getText().toString());
+        String avatarUrl = mAvatarUrl.getText().toString();
+        if (!avatarUrl.isEmpty()) {
+            setAvatarUrl(avatarUrl);
+        }
         View view = getActivity().getCurrentFocus();
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);

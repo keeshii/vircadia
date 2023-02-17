@@ -58,4 +58,5 @@
     <string name="displayName">Name to display</string>
     <string name="ok">OK</string>
     <string name="profile">Avatar</string>
+    <string name="avatarUrl">Change Avatar URL</string>
 </resources>
