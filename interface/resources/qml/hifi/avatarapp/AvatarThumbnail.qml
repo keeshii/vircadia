@@ -11,18 +11,12 @@ Item {
         console.debug('AvatarThumbnail: wearablesCount = ', wearablesCount)
     }
 
-    property alias dropShadowRadius: avatarImage.dropShadowRadius
-    property alias dropShadowHorizontalOffset: avatarImage.dropShadowHorizontalOffset
-    property alias dropShadowVerticalOffset: avatarImage.dropShadowVerticalOffset
-
     property url externalAvatarThumbnailUrl;
     property var avatarUrl;
-    property alias border: avatarImage.border
 
-    ShadowImage {
+    Image {
         id: avatarImage
         anchors.fill: parent
-        radius: 5
         fillMode: Image.PreserveAspectCrop
 
         Binding on source {
@@ -33,24 +27,20 @@ Item {
         visible: avatarImage.status !== Image.Loading && avatarImage.status !== Image.Error
     }
 
-    ShadowImage {
+    Image {
         id: customAvatarImage
         anchors.fill: avatarImage;
         visible: avatarUrl === '' || avatarImage.status === Image.Error
         source: externalAvatarThumbnailUrl
     }
 
-    ShadowRectangle {
+    Rectangle {
         anchors.fill: parent;
         color: 'white'
         visible: avatarImage.status === Image.Loading
         radius: avatarImage.radius
         border.width: avatarImage.border.width
         border.color: avatarImage.border.color
-
-        dropShadowRadius: avatarImage.dropShadowRadius;
-        dropShadowHorizontalOffset: avatarImage.dropShadowHorizontalOffset
-        dropShadowVerticalOffset: avatarImage.dropShadowVerticalOffset
 
         Spinner {
             id: spinner

@@ -1103,7 +1103,7 @@ Rectangle {
                 }
                 MouseArea {
                     anchors.fill: parent;
-                    enabled: myData.userName !== "Unknown user" && !userInfoViewer.visible;
+                    enabled: myData.userName !== "Unknown user";
                     hoverEnabled: true;
                     onClicked: {
                         // TODO: Change language from "Happening Now" to something else (or remove entirely)
@@ -1132,18 +1132,6 @@ Rectangle {
                 right: parent.right;
             }
         } // Keyboard
-
-        HifiControls.TabletWebView {
-            id: userInfoViewer;
-            z: 999;
-            anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                left: parent.left;
-                right: parent.right;
-            }
-            visible: false;
-        }
 
     // Timer used when selecting nearbyTable rows that aren't yet present in the model
     // (i.e. when selecting avatars using edit.js or sphere overlays)

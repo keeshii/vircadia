@@ -14,7 +14,6 @@ ShadowGlyph {
             when: pageIndicatorMouseArea.containsMouse;
             PropertyChanges { target: pageIndicatorMouseArea; anchors.bottomMargin: -5 }
             PropertyChanges { target: indicator; y: -5 }
-            PropertyChanges { target: indicator; dropShadowVerticalOffset: 9 }
         }
     ]
 

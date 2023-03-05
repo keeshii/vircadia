@@ -296,16 +296,15 @@ void StartEndRenderState::disable() {
 
 void StartEndRenderState::update(const glm::vec3& origin, const glm::vec3& end, const glm::vec3& surfaceNormal, float parentScale, bool distanceScaleEnd, bool centerEndY,
                                  bool faceAvatar, bool followNormal, float followNormalStrength, float distance, const PickResultPointer& pickResult) {
-    auto entityScriptingInterface = DependencyManager::get<EntityScriptingInterface>();
     if (!getStartID().isNull()) {
         EntityItemProperties properties;
         properties.setPosition(origin);
         properties.setVisible(true);
         properties.setDimensions(getStartDim() * parentScale);
         properties.setIgnorePickIntersection(doesStartIgnorePicks());
-        entityScriptingInterface->editEntity(getStartID(), properties);
+        DependencyManager::get<EntityScriptingInterface>()->editEntity(getStartID(), properties);
     }
-
+/*
     if (!getEndID().isNull()) {
         EntityItemProperties properties;
         EntityPropertyFlags desiredProperties;
@@ -356,8 +355,9 @@ void StartEndRenderState::update(const glm::vec3& origin, const glm::vec3& end, 
         properties.setRotation(rotation);
         properties.setVisible(true);
         properties.setIgnorePickIntersection(doesEndIgnorePicks());
-        entityScriptingInterface->editEntity(getEndID(), properties);
+        DependencyManager::get<EntityScriptingInterface>()->editEntity(getEndID(), properties);
     }
+*/
     _enabled = true;
 }
 

@@ -21,9 +21,16 @@
             activeIcon: "icons/tablet-icons/goto-a.svg",
             text: destination
         });
-        var buttonDestination = destination;
+
+        var buttonDestination;
+        if (destination === 'tutorial') {
+            buttonDestination = 'file:///~/serverless/tutorial.json';
+        } else {
+            buttonDestination = 'hifi://' + destination
+        }
+
         button.clicked.connect(function() {
-            Window.location = "hifi://" + buttonDestination;
+            Window.location = buttonDestination;
         });
         Script.scriptEnding.connect(function () {
             tablet.removeButton(button);
@@ -32,6 +39,6 @@
 
     addGotoButton("hub.daleglass.net");
     addGotoButton("lq-hub.vircadia.com");
-    addGotoButton("file:///~/serverless/tutorial.json");
+    addGotoButton("tutorial");
 
 }()); // END LOCAL_SCOPE

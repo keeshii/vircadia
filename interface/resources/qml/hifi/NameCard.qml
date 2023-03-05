@@ -96,10 +96,6 @@ Item {
             enabled: (selected && activeTab == "nearbyTab") || isMyCard;
             hoverEnabled: enabled
             onClicked: {
-                if (has3DHTML) {
-                    userInfoViewer.url = Account.metaverseServerURL + "/users/" + userName;
-                    userInfoViewer.visible = true;
-                }
             }
             onEntered: infoHoverImage.visible = has3DHTML;
             onExited: infoHoverImage.visible = false;
@@ -368,12 +364,6 @@ Item {
         anchors.fill:nameCardConnectionInfoImage
         enabled: selected
         hoverEnabled: true
-        onClicked: {
-            if (has3DHTML) {
-                userInfoViewer.url = Account.metaverseServerURL + "/users/" + userName;
-                userInfoViewer.visible = true;
-            }
-        }
         onEntered: {
             nameCardConnectionInfoImage.buttonState = 1;
         }

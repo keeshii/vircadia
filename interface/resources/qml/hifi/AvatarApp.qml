@@ -54,7 +54,7 @@ Rectangle {
 
     function fetchAvatarModelName(marketId, avatar) {
         var xmlhttp = new XMLHttpRequest();
-        var url = "https://highfidelity.com/api/v1/marketplace/items/" + marketId;
+        var url = "https://metaverse.vircadia.com/live/api/v1/marketplace/items/" + marketId;
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === XMLHttpRequest.DONE && xmlhttp.status === 200) {
                 try {
@@ -360,7 +360,7 @@ Rectangle {
             }
         }
 
-        ShadowImage {
+        Image {
             id: avatarImage
             width: 134
             height: 134
@@ -375,22 +375,18 @@ Rectangle {
             fillMode: Image.PreserveAspectCrop
         }
 
-        ShadowImage {
+        Image {
             id: customAvatarImage
             anchors.fill: avatarImage;
             visible: avatarUrl === '' || avatarImage.status === Image.Error
             source: externalAvatarThumbnailUrl
         }
 
-        ShadowRectangle {
+        Rectangle {
             anchors.fill: avatarImage;
             color: 'white'
             visible: avatarImage.status === Image.Loading
             radius: avatarImage.radius
-
-            dropShadowRadius: avatarImage.dropShadowRadius;
-            dropShadowHorizontalOffset: avatarImage.dropShadowHorizontalOffset
-            dropShadowVerticalOffset: avatarImage.dropShadowVerticalOffset
 
             Spinner {
                 id: spinner
@@ -696,16 +692,12 @@ Rectangle {
                                 when: favoriteAvatarMouseArea.containsMouse;
                                 PropertyChanges { target: favoriteAvatarMouseArea; anchors.bottomMargin: -5 }
                                 PropertyChanges { target: container; y: -5 }
-                                PropertyChanges { target: favoriteAvatarImage; dropShadowRadius: 10 }
-                                PropertyChanges { target: favoriteAvatarImage; dropShadowVerticalOffset: 6 }
                             },
                             State {
                                 name: "getMoreAvatarsHovered"
                                 when: getMoreAvatarsMouseArea.containsMouse;
                                 PropertyChanges { target: getMoreAvatarsMouseArea; anchors.bottomMargin: -5 }
                                 PropertyChanges { target: container; y: -5 }
-                                PropertyChanges { target: getMoreAvatarsImage; dropShadowRadius: 10 }
-                                PropertyChanges { target: getMoreAvatarsImage; dropShadowVerticalOffset: 6 }
                             }
                         ]
 
@@ -715,8 +707,6 @@ Rectangle {
                             id: favoriteAvatarImage
                             externalAvatarThumbnailUrl: root.externalAvatarThumbnailUrl
                             avatarUrl: thumbnailUrl
-                            border.color: container.highlighted ? style.colors.blueHighlight : 'transparent'
-                            border.width: container.highlighted ? 4 : 0
                             wearablesCount: {
                                 return !getMoreAvatars ? wearables.count : 0
                             }
@@ -764,7 +754,7 @@ Rectangle {
                             size: 56
                         }
 
-                        ShadowRectangle {
+                        Rectangle {
                             id: getMoreAvatarsImage
                             width: 92
                             height: 92

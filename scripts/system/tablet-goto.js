@@ -24,7 +24,7 @@ function gotoOpened() {
 }
 
 function notificationDataProcessPage(data) {
-    return data.user_stories;
+    return data ? data.user_stories : [];
 }
 
 var shouldShowDot = false;
@@ -101,13 +101,13 @@ function notificationPollCallback(userStoriesArray) {
 }
 
 function isReturnedDataEmpty(data) {
-    var storiesArray = data.user_stories;
+    var storiesArray = data ? data.user_stories : [];
     return storiesArray.length === 0;
 }
 
 var ui;
 var GOTO_QML_SOURCE = "hifi/tablet/TabletAddressDialog.qml";
-var BUTTON_NAME = "OLD GOTO";
+var BUTTON_NAME = "EXPLORE";
 function startup() {
     var options = [
         'include_actions=announcement',

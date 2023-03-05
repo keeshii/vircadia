@@ -2,12 +2,8 @@ import QtQuick 2.9
 import controlsUit 1.0
 import stylesUit 1.0
 
-ShadowRectangle {
+Rectangle {
     property int wearablesCount: 0
-
-    dropShadowRadius: 4
-    dropShadowHorizontalOffset: 0
-    dropShadowVerticalOffset: 0
 
     width: 46.5
     height: 46.5
