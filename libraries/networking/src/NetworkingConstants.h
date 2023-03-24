@@ -29,8 +29,8 @@ namespace NetworkingConstants {
     const QString WEB_ENGINE_VERSION = "Chrome/83.0.4103.122";
 
     // For now we only have one Metaverse server.
-    const QUrl METAVERSE_SERVER_URL_STABLE { "https://metaverse.vircadia.com/live" };
-    const QUrl METAVERSE_SERVER_URL_STAGING { "https://metaverse.vircadia.com/live" };
+    const QUrl METAVERSE_SERVER_URL_STABLE { "https://metaverse.kuro.ryuu.eu/live" };
+    const QUrl METAVERSE_SERVER_URL_STAGING { "https://metaverse.kuro.ryuu.eu/live" };
 
     // Web Engine requests to this parent domain have an account authorization header added
     const QString AUTH_HOSTNAME_BASE = "vircadia.com";

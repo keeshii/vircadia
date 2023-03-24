@@ -474,7 +474,7 @@ Item {
                 font.pixelSize: linkAccountBody.textFieldFontSize
                 font.bold: linkAccountBody.fontBold
 
-                text: "<a href='https://metaverse.vircadia.com/users/password/new'> Can't access your account?</a>"
+                text: "<a href='https://metaverse.kuro.ryuu.eu/users/password/new'> Can't access your account?</a>"
 
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -600,7 +600,7 @@ Item {
                      leftMargin: hifi.dimensions.contentSpacing.x
                 }
 
-                text: "<a href='https://metaverse.vircadia.com/users/register'>Sign Up</a>"
+                text: "<a href='https://metaverse.kuro.ryuu.eu/users/register'>Sign Up</a>"
 
                 linkColor: hifi.colors.blueAccent
                 onLinkActivated: {

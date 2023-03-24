@@ -37,10 +37,10 @@ task clean(type: Delete) {
 }
 
 ext {
-    RELEASE_NUMBER = project.hasProperty('RELEASE_NUMBER') ? project.getProperty('RELEASE_NUMBER') : '0'
-    VERSION_CODE = project.hasProperty('VERSION_CODE') ? project.getProperty('VERSION_CODE') : '0'
-    RELEASE_TYPE = project.hasProperty('RELEASE_TYPE') ? project.getProperty('RELEASE_TYPE') : 'DEV'
-    STABLE_BUILD = project.hasProperty('STABLE_BUILD') ? project.getProperty('STABLE_BUILD') : '0'
+    RELEASE_NUMBER = project.hasProperty('RELEASE_NUMBER') ? project.getProperty('RELEASE_NUMBER') : '2021.1.2'
+    VERSION_CODE = project.hasProperty('VERSION_CODE') ? project.getProperty('VERSION_CODE') : '202112'
+    RELEASE_TYPE = project.hasProperty('RELEASE_TYPE') ? project.getProperty('RELEASE_TYPE') : 'PRODUCTION'
+    STABLE_BUILD = project.hasProperty('STABLE_BUILD') ? project.getProperty('STABLE_BUILD') : '1'
     EXEC_SUFFIX = Os.isFamily(Os.FAMILY_WINDOWS) ? '.exe' : ''
     appVersionCode = Integer.valueOf(VERSION_CODE ?: 1)
     appVersionName = RELEASE_NUMBER ?: "1.0"

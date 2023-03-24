@@ -24,7 +24,7 @@ Rectangle {
     WebView {
         id: webView
         anchors.fill: root
-        url: "https://google.com"
+        url: "https://metaverse.kuro.ryuu.eu"
     }
 
 }

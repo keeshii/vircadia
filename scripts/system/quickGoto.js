@@ -37,8 +37,7 @@
         });
     }
 
-    // addGotoButton("hub.daleglass.net");
-    // addGotoButton("lq-hub.vircadia.com");
+    // addGotoButton("kuro.ryuu.eu");
     addGotoButton("tutorial");
 
 }()); // END LOCAL_SCOPE

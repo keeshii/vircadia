@@ -5,7 +5,7 @@
         "avatarEntites": [
         ],
         "avatarScale": 1,
-        "avatarUrl": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Woody/mannequin.fst",
+        "avatarUrl": "https://metaverse.kuro.ryuu.eu/public/avatars/Woody/mannequin.fst",
         "version": 3
     },
     "Kim": {
@@ -14,8 +14,8 @@
         "avatarEntites": [
         ],
         "avatarScale": 1,
-        "avatarUrl": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Kim/fbx/Kim.fst",
-        "avatarIcon": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Kim/img/icon.png",
+        "avatarUrl": "https://metaverse.kuro.ryuu.eu/public/avatars/Kim/fbx/Kim.fst",
+        "avatarIcon": "https://metaverse.kuro.ryuu.eu/public/avatars/Kim/img/icon.png",
         "version": 3
     },
     "Mason": {
@@ -24,8 +24,8 @@
         "avatarEntites": [
         ],
         "avatarScale": 1,
-        "avatarUrl": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Mason/fbx/Mason.fst",
-        "avatarIcon": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Mason/img/icon.png",
+        "avatarUrl": "https://metaverse.kuro.ryuu.eu/public/avatars/Mason/fbx/Mason.fst",
+        "avatarIcon": "https://metaverse.kuro.ryuu.eu/public/avatars/Mason/img/icon.png",
         "version": 3
     },
     "Mike": {
@@ -34,8 +34,8 @@
         "avatarEntites": [
         ],
         "avatarScale": 1,
-        "avatarUrl": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Mike/fbx/Mike.fst",
-        "avatarIcon": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Mike/img/icon.png",
+        "avatarUrl": "https://metaverse.kuro.ryuu.eu/public/avatars/Mike/fbx/Mike.fst",
+        "avatarIcon": "https://metaverse.kuro.ryuu.eu/public/avatars/Mike/img/icon.png",
         "version": 3
     },
     "Sean": {
@@ -44,8 +44,8 @@
         "avatarEntites": [
         ],
         "avatarScale": 1,
-        "avatarUrl": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Sean/fbx/Sean.fst",
-        "avatarIcon": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Sean/img/icon.png",
+        "avatarUrl": "https://metaverse.kuro.ryuu.eu/public/avatars/Sean/fbx/Sean.fst",
+        "avatarIcon": "https://metaverse.kuro.ryuu.eu/public/avatars/Sean/img/icon.png",
         "version": 3
     },
     "Summer": {
@@ -54,8 +54,8 @@
         "avatarEntites": [
         ],
         "avatarScale": 1,
-        "avatarUrl": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Summer/fbx/Summer.fst",
-        "avatarIcon": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Summer/img/icon.png",
+        "avatarUrl": "https://metaverse.kuro.ryuu.eu/public/avatars/Summer/fbx/Summer.fst",
+        "avatarIcon": "https://metaverse.kuro.ryuu.eu/public/avatars/Summer/img/icon.png",
         "version": 3
     },
     "Tanya": {
@@ -64,8 +64,8 @@
         "avatarEntites": [
         ],
         "avatarScale": 1,
-        "avatarUrl": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Tanya/fbx/Tanya.fst",
-        "avatarIcon": "https://cdn-1.vircadia.com/us-e-1/Bazaar/Avatars/Tanya/img/icon.png",
+        "avatarUrl": "https://metaverse.kuro.ryuu.eu/public/avatars/Tanya/fbx/Tanya.fst",
+        "avatarIcon": "https://metaverse.kuro.ryuu.eu/public/avatars/Tanya/img/icon.png",
         "version": 3
     }
 }

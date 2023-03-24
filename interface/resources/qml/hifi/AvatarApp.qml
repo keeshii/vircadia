@@ -54,7 +54,7 @@ Rectangle {
 
     function fetchAvatarModelName(marketId, avatar) {
         var xmlhttp = new XMLHttpRequest();
-        var url = "https://metaverse.vircadia.com/live/api/v1/marketplace/items/" + marketId;
+        var url = "https://metaverse.kuro.ryuu.eu/live/api/v1/marketplace/items/" + marketId;
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === XMLHttpRequest.DONE && xmlhttp.status === 200) {
                 try {

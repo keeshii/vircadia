@@ -58,7 +58,7 @@ var visible = false;
 var historyVisible = false;
 var settingsRoot = "FloofChat";
 
-var vircadiaGotoUrl = "https://metaverse.vircadia.com/interim/d-goto/app/goto.json";
+var vircadiaGotoUrl = "https://metaverse.kuro.ryuu.eu/interim/d-goto/app/goto.json";
 var gotoJSONUrl = Settings.getValue(settingsRoot + "/gotoJSONUrl", vircadiaGotoUrl);
 
 var muted = Settings.getValue(settingsRoot + "/muted", {"Local": false, "Domain": true, "Grid": true});

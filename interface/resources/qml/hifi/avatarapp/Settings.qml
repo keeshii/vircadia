@@ -456,7 +456,7 @@ Rectangle {
                 id: avatarCollisionSoundUrlInputText
                 font.pixelSize: 17
                 Layout.fillWidth: true
-                placeholderText: "https://cdn-1.vircadia.com/eu-c-1/vircadia-public/sounds/Collisions-"
+                placeholderText: "https://metaverse.kuro.ryuu.eu/public/cdn/sounds/Collisions-"
 
                 onFocusChanged: {
                     keyboardRaised = (avatarAnimationUrlInputText.focus || avatarCollisionSoundUrlInputText.focus);

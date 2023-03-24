@@ -45,7 +45,7 @@ var DEFAULT_SCRIPTS_SEPARATE = [
     "communityScripts/notificationCore/notificationCore.js",
     "simplifiedUI/ui/simplifiedNametag/simplifiedNametag.js",
     {"stable": "system/more/app-more.js", "beta": "https://cdn.vircadia.com/community-apps/more/app-more.js"},
-    {"stable": "communityScripts/explore/explore.js", "beta": "https://metaverse.vircadia.com/interim/d-goto/app/explore.js"},
+    {"stable": "communityScripts/explore/explore.js", "beta": "https://metaverse.kuro.ryuu.eu/interim/d-goto/app/explore.js"},
     {"stable": "communityScripts/chat/FloofChat.js", "beta": "https://content.fluffy.ws/scripts/chat/FloofChat.js"}
     //"system/chat.js"
 ];
