@@ -118,12 +118,13 @@ QUrl PathUtils::expandToLocalDataAbsolutePath(const QUrl& fileUrl) {
     if (path.startsWith("/~/")) {
         // this results in a qrc:// url...
         // return resourcesUrl(path.mid(3));
-
 #ifdef Q_OS_MAC
         static const QString staticResourcePath = QCoreApplication::applicationDirPath() + "/../Resources/";
 #elif defined (ANDROID)
         static const QString staticResourcePath =
             QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/resources/";
+        QUrl androidUrl("qrc://" + path.replace(0, 3, "/"));
+        return androidUrl;
 #else
         static const QString staticResourcePath = QCoreApplication::applicationDirPath() + "/resources/";
 #endif

@@ -12,6 +12,7 @@
 #include <QtCore/QTimer>
 #include <QtCore/QFileInfo>
 #include <QtAndroidExtras/QAndroidJniObject>
+#include <QtWebView>
 
 #include <Trace.h>
 
@@ -45,6 +46,7 @@ void messageHandler(QtMsgType type, const QMessageLogContext& context, const QSt
 
 int main(int argc, char** argv) {
     setupHifiApplication("gpuFramePlayer");
+    QtWebView::initialize();
     QGuiApplication app(argc, argv);
     auto oldMessageHandler = qInstallMessageHandler(messageHandler);
     DependencyManager::set<tracing::Tracer>();
