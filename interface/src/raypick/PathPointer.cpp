@@ -304,7 +304,7 @@ void StartEndRenderState::update(const glm::vec3& origin, const glm::vec3& end, 
         properties.setIgnorePickIntersection(doesStartIgnorePicks());
         DependencyManager::get<EntityScriptingInterface>()->editEntity(getStartID(), properties);
     }
-/*
+
     if (!getEndID().isNull()) {
         EntityItemProperties properties;
         EntityPropertyFlags desiredProperties;
@@ -357,7 +357,7 @@ void StartEndRenderState::update(const glm::vec3& origin, const glm::vec3& end, 
         properties.setIgnorePickIntersection(doesEndIgnorePicks());
         DependencyManager::get<EntityScriptingInterface>()->editEntity(getEndID(), properties);
     }
-*/
+
     _enabled = true;
 }
 

@@ -33,7 +33,7 @@ Pointer = function(hudLayer, pickType, pointerData) {
         dimensions: this.dim,
         solid: true,
         color: COLORS_GRAB_SEARCHING_HALF_SQUEEZE,
-        alpha: 0.9,
+        alpha: 1,
         ignoreRayIntersection: true,
         drawInFront: !hudLayer, // Even when burried inside of something, show it.
         drawHUDLayer: hudLayer,
@@ -55,7 +55,7 @@ Pointer = function(hudLayer, pickType, pointerData) {
         dimensions: this.dim,
         solid: true,
         color: COLORS_GRAB_SEARCHING_FULL_SQUEEZE,
-        alpha: 0.9,
+        alpha: 1,
         ignoreRayIntersection: true,
         drawInFront: !hudLayer, // Even when burried inside of something, show it.
         drawHUDLayer: hudLayer,
