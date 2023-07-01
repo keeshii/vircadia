@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM ubuntu:22.04
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
@@ -7,6 +7,7 @@ RUN apt-get update && apt-get -y install \
     gnupg \
     software-properties-common \
     unzip \
+    openjdk-8-jdk \
     -
 
 # --- Versions and Download paths
@@ -36,6 +37,10 @@ RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSIO
 RUN chmod -R a+w "${ANDROID_HOME}"
 RUN chmod -R a+w "${ANDROID_SDK_HOME}"
 
+# Ugh.. qt linked to my local path
+RUN mkdir -p /home/kamil/android-sdk/ndk && \
+    ln -s ${ANDROID_NDK_HOME} /home/kamil/android-sdk/ndk/18.1.5063045
+
 # --- Android NDK
 # download
 RUN mkdir /usr/local/android-ndk-tmp && \
@@ -53,6 +58,9 @@ RUN apt-get -y install \
     gcc \
     sudo \
     emacs-nox \
+    cmake \
+    git \
+    python3.10-distutils \
     -
 
 # --- Gradle
@@ -72,11 +80,12 @@ RUN mkdir "$HIFI_BASE" && \
     mkdir "$HIFI_ANDROID_PRECOMPILED"
 
 # Download the repo
-RUN git clone https://github.com/vircadia/vircadia.git
+RUN git clone --depth 1 https://github.com/keeshii/vircadia.git
 
 WORKDIR /home/gha/vircadia
 
-RUN mkdir build
+RUN mkdir -p build/_env \
+    && echo -n "https://athena-public.s3.amazonaws.com" >> build/_env/EXTERNAL_BUILD_ASSETS.txt
 
 # Pre-cache the vcpkg managed dependencies
 WORKDIR /home/gha/vircadia/build
