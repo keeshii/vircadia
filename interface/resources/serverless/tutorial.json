@@ -2197,6 +2197,192 @@
     "localEntity": false,
     "faceCamera": false,
     "isFacingAvatar": false
+},
+    {
+    "id": "{b65da22f-09d9-4ad5-96c8-5c0d154cf422}",
+    "type": "Text",
+    "lastEdited": 1695100582124295,
+    "name": "Avatar_Viewer_Sign",
+    "position": {
+        "x": 23.6486,
+        "y": 0.3432,
+        "z": -0.6114
+    },
+    "dimensions": {
+        "x": 1.044848918914795,
+        "y": 0.400476336479187,
+        "z": 0.009999999776482582
+    },
+    "rotation": {
+        "x": 0.5223942995071411,
+        "y": -0.3033091723918915,
+        "z": -0.20580066740512848,
+        "w": -0.769905149936676
+    },
+    "created": 1695100426374695,
+    "lastEditedBy": "{f8725648-3a97-4d5a-a288-ef885578e5ff}",
+    "queryAACube": {
+        "x": 3.9460952281951904,
+        "y": -0.3549167513847351,
+        "z": 1.7459592819213867,
+        "scale": 1.1190131902694702
+    },
+    "grab": {
+        "grabbable": false
+    },
+    "text": "AVATAR VIEWER",
+    "lineHeight": 0.18000000715255737,
+    "textColor": {
+        "red": 255,
+        "green": 235,
+        "blue": 153
+    },
+    "backgroundAlpha": 0,
+    "unlit": true,
+    "alignment": "center",
+    "clientOnly": false,
+    "avatarEntity": false,
+    "localEntity": false,
+    "faceCamera": false,
+    "isFacingAvatar": false
+},
+    {
+    "id": "{4557dafc-955f-49e8-a2df-7c95594cbd42}",
+    "type": "Text",
+    "lastEdited": 1695100582124532,
+    "name": "Avatar_Viewer_Sign",
+    "position": {
+        "x": 19.1430,
+        "y": 0.3421,
+        "z": -0.7638
+    },
+    "dimensions": {
+        "x": 1.044848918914795,
+        "y": 0.400476336479187,
+        "z": 0.009999999776482582
+    },
+    "rotation": {
+        "x": 0.5149025917053223,
+        "y": 0.32993587851524353,
+        "z": 0.2238616943359375,
+        "w": -0.7588831782341003
+    },
+    "created": 1695100426374790,
+    "lastEditedBy": "{f8725648-3a97-4d5a-a288-ef885578e5ff}",
+    "queryAACube": {
+        "x": -0.5595065951347351,
+        "y": -0.3560153841972351,
+        "z": 1.5935041904449463,
+        "scale": 1.1190131902694702
+    },
+    "grab": {
+        "grabbable": false
+    },
+    "text": "AVATAR VIEWER",
+    "lineHeight": 0.18000000715255737,
+    "textColor": {
+        "red": 255,
+        "green": 235,
+        "blue": 153
+    },
+    "backgroundAlpha": 0,
+    "unlit": true,
+    "alignment": "center",
+    "clientOnly": false,
+    "avatarEntity": false,
+    "localEntity": false,
+    "faceCamera": false,
+    "isFacingAvatar": false
+},
+    {
+    "id": "{55d0bd05-9023-4c00-bf2c-a74ac085e9e2}",
+    "type": "Shape",
+    "lastEdited": 1695100608899187,
+    "visible": false,
+    "name": "AVATAR_VIEWER_TRIGGER",
+    "position": {
+        "x": 21.4733,
+        "y": 1.8112,
+        "z": -2.9168
+    },
+    "dimensions": {
+        "x": 12,
+        "y": 3.854274272918701,
+        "z": 7
+    },
+    "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+    },
+    "created": 1695100426374834,
+    "lastEditedBy": "{f8725648-3a97-4d5a-a288-ef885578e5ff}",
+    "queryAACube": {
+        "x": -4.878309726715088,
+        "y": -5.5359883308410645,
+        "z": -7.2085957527160645,
+        "scale": 14.417191505432129
+    },
+    "grab": {
+        "grabbable": false
+    },
+    "collisionless": true,
+    "ignoreForCollisions": true,
+    "script": "qrc:///serverless/Scripts/doppleganger.js",
+    "color": {
+        "red": 240,
+        "green": 128,
+        "blue": 0
+    },
+    "shape": "Cylinder",
+    "clientOnly": false,
+    "avatarEntity": false,
+    "localEntity": false,
+    "faceCamera": false,
+    "isFacingAvatar": false
+},
+    {
+    "id": "{b762d045-94ce-4831-841b-4404d38ab3b1}",
+    "type": "Model",
+    "lastEdited": 1695100582125019,
+    "name": "AVATAR_VIEWER_PLATFORM",
+    "position": {
+        "x": 21.4733,
+        "y": 0.1386,
+        "z": -2.9168
+    },
+    "dimensions": {
+        "x": 7,
+        "y": 0.27500930428504944,
+        "z": 7
+    },
+    "rotation": {
+        "x": 0,
+        "y": -0.7193397879600525,
+        "z": 0,
+        "w": 0.6946583390235901
+    },
+    "created": 1695100426374741,
+    "lastEditedBy": "{f8725648-3a97-4d5a-a288-ef885578e5ff}",
+    "queryAACube": {
+        "x": -2.621370792388916,
+        "y": -4.951656818389893,
+        "z": -4.951656818389893,
+        "scale": 9.903313636779785
+    },
+    "grab": {
+        "grabbable": false
+    },
+    "shapeType": "static-mesh",
+    "modelURL": "qrc:///serverless/Models/avatarStand.fst",
+    "blendshapeCoefficients": "{\n}\n",
+    "useOriginalPivot": true,
+    "clientOnly": false,
+    "avatarEntity": false,
+    "localEntity": false,
+    "faceCamera": false,
+    "isFacingAvatar": false
 }
     ],
   "Id": "{2fef14da-af5c-43f2-855c-b36bfa23d90f}",
