@@ -47,6 +47,25 @@ StackView {
         }
     }
 
+    Component { id: tabletWebView; TabletWebView {} }
+    Component.onCompleted: {
+        updateLocationText(false);
+        root.parentChanged.connect(center);
+        center();
+        tablet = Tablet.getTablet("com.highfidelity.interface.tablet.system");
+
+        Qt.callLater(function() {
+            addressBarDialog.keyboardEnabled = HMD.active;
+            addressLine.forceActiveFocus();
+            addressBarDialog.keyboardRaised = true;
+        })
+    }
+
+    Component.onDestruction: {
+        root.parentChanged.disconnect(center);
+        keyboard.raised = false;
+    }
+
     function center() {
         // Explicitly center in order to avoid warnings at shutdown
         anchors.centerIn = parent;
@@ -57,6 +76,12 @@ StackView {
     }
     function goCard(targetString, standaloneOptimized) {
         if (0 !== targetString.indexOf('hifi://')) {
+            if(has3DHTML) {
+                var card = tabletWebView.createObject();
+                card.url = addressBarDialog.metaverseServerUrl + targetString;
+            }
+            card.parentStackItem = root;
+            root.push(card);
             return;
         }
         location.text = targetString;

@@ -84,7 +84,7 @@ Rectangle {
 
         onGetMarketplaceCategoriesResult: {
             if (result.status !== 'success') {
-                console.log("Failed to get Marketplace Categories", result.data.message);
+                console.log("Failed to get Marketplace Categories", result.message);
             } else {
                 categoriesModel.clear();
                 result.data.categories.forEach(function(category) {

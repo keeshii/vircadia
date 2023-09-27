@@ -57,6 +57,9 @@ Column {
         endpoint: '/api/v1/user_stories?' + options.join('&') + (PlatformInfo.isStandalone() ? '&standalone_optimized=true' : '')
         itemsPerPage: 4;
         processPage: function (data) {
+            if (!data || !data.user_stories) {
+              return [];
+            }
             return data.user_stories.map(makeModelData);
         };
         listModelName: actions;

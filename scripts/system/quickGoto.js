@@ -37,8 +37,8 @@
         });
     }
 
-    addGotoButton("hub.daleglass.net");
-    addGotoButton("lq-hub.vircadia.com");
+    // addGotoButton("hub.daleglass.net");
+    // addGotoButton("lq-hub.vircadia.com");
     addGotoButton("tutorial");
 
 }()); // END LOCAL_SCOPE

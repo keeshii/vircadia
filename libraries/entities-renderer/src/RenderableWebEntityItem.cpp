@@ -63,7 +63,9 @@ WebEntityRenderer::ContentType WebEntityRenderer::getContentType(const QString& 
     if (urlString.isEmpty()) {
         return ContentType::NoContent;
     }
-
+    if (urlString.endsWith(".qml")) {
+        return ContentType::QmlContent;
+    }
     const QUrl url(urlString);
     auto scheme = url.scheme();
     if (scheme == HIFI_URL_SCHEME_ABOUT || scheme == HIFI_URL_SCHEME_HTTP || scheme == HIFI_URL_SCHEME_HTTPS ||
