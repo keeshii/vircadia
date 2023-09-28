@@ -1,17 +1,30 @@
+//
+//  Wizard.qml
+//
+//  Created by keeshii on 26 Sep 2023
+//  Copyright 2023 Overte, Org.
+//
+//  Distributed under the Apache License, Version 2.0.
+//  See the accompanying file LICENSE or http://www.apache.org/licenses/LICENSE-2.0.html
+//
+
 import Hifi 1.0 as Hifi
 import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.12
 
 import stylesUit 1.0 as HifiStylesUit
-import controlsUit 1.0 as HiFiControls
-import controls 1.0 as HifiControls
+import controlsUit 1.0 as HifiControls
+import "qrc:////qml//styles" as HifiStyles
 import "qrc:////qml//hifi" as Hifi
-import "qrc:////qml//styles"
 
 Rectangle {
-  id: rectLayout
+  id: wizard
   color: "#433952"
+
+  property int performancePreset: 0
+  property int refreshRateProfile: 0
+  property string displayName: ""
 
   property bool keyboardEnabled: false
   property bool punctuationMode: false
@@ -44,9 +57,9 @@ Rectangle {
     var completionMessage = {
       command: "complete-wizard",
       data: {
-        performancePreset: loader.performancePreset,
-        refreshRateProfile: loader.refreshRateProfile,
-        displayName: loader.displayName
+        performancePreset: wizard.performancePreset,
+        refreshRateProfile: wizard.refreshRateProfile,
+        displayName: wizard.displayName
       }
     };
     eventBridge.emitWebEvent(JSON.stringify(completionMessage));
@@ -55,9 +68,9 @@ Rectangle {
   function handleWebEvent(message) {
     var messageJSON = JSON.parse(message);
     if (messageJSON.command === "script-to-web-initialize") {
-      loader.performancePreset = messageJSON.data.performancePreset;
-      loader.refreshRateProfile = messageJSON.data.refreshRateProfile;
-      loader.displayName = messageJSON.data.displayName;
+      wizard.performancePreset = messageJSON.data.performancePreset;
+      wizard.refreshRateProfile = messageJSON.data.refreshRateProfile;
+      wizard.displayName = messageJSON.data.displayName;
     }
   }
 
@@ -66,17 +79,21 @@ Rectangle {
     eventBridge.emitWebEvent(JSON.stringify(initializeCommand));
   }
 
+  function stop() {
+    wizard.keyboardEnabled = false;
+  }
+
   // Layout constants constants
-  HifiConstants { id: hifi }
+  HifiStyles.HifiConstants { id: hifi }
 
   Rectangle {
     id: steps
     color: "#26202e"
     width: parent.width - 8 * hifi.layout.spacing
     height: hifi.layout.rowHeight + 6 * hifi.layout.spacing
-    anchors.top: rectLayout.top
+    anchors.top: wizard.top
     anchors.topMargin: 4 * hifi.layout.spacing
-    anchors.horizontalCenter: rectLayout.horizontalCenter
+    anchors.horizontalCenter: wizard.horizontalCenter
     radius: hifi.layout.spacing
 
     ListView {
@@ -148,12 +165,8 @@ Rectangle {
     height: parent.height - steps.height - backButton.height - 12 * hifi.layout.spacing
     anchors.top: steps.bottom
     anchors.topMargin: 2 * hifi.layout.spacing
-    anchors.horizontalCenter: rectLayout.horizontalCenter
+    anchors.horizontalCenter: wizard.horizontalCenter
     sourceComponent: step1
-
-    property int performancePreset: 0
-    property int refreshRateProfile: 0
-    property string displayName: ""
   }
 
   Component {
@@ -235,29 +248,29 @@ Rectangle {
             text: 
               "<font size=\"4\" color=\"#ff9900\"><b>Very Low Quality</b></font>\n" +
               "<font color=\"white\">Slow Laptop / Very Slow Computer</font>"
-            onClicked: loader.performancePreset = 1
-            checked: loader.performancePreset === 1
+            onClicked: wizard.performancePreset = 1
+            checked: wizard.performancePreset === 1
         }
         RadioButton {
             text:
               "<font size=\"4\" color=\"#ffff00\"><b>Low Quality</b></font>\n" +
               "<font color=\"white\">Average Laptop / Slow Computer</font>"
-            onClicked: loader.performancePreset = 2
-            checked: loader.performancePreset === 2
+            onClicked: wizard.performancePreset = 2
+            checked: wizard.performancePreset === 2
         }
         RadioButton {
             text:
               "<font size=\"4\" color=\"#00ba1c\"><b>Medium Quality</b></font>\n" +
               "<font color=\"white\">Average Computer - </font><font color=\"#00ba1c\"><i>Recommended</i></font>"
-            onClicked: loader.performancePreset = 3
-            checked: loader.performancePreset === 3
+            onClicked: wizard.performancePreset = 3
+            checked: wizard.performancePreset === 3
         }
         RadioButton {
             text:
               "<font size=\"4\" color=\"#0096db\"><b>High Quality</b></font>\n" +
               "<font color=\"white\">Gaming Computer</font>"
-            onClicked: loader.performancePreset = 4
-            checked: loader.performancePreset === 4
+            onClicked: wizard.performancePreset = 4
+            checked: wizard.performancePreset === 4
         }
       }
     }
@@ -305,22 +318,22 @@ Rectangle {
             text:
               "<font size=\"4\" color=\"#ff9900\"><b>Not Smooth (20 Hz)</b></font>\n" +
               "<font color=\"white\">Conserve Power</font>"
-            onClicked: loader.refreshRateProfile = 1
-            checked: loader.refreshRateProfile === 1
+            onClicked: wizard.refreshRateProfile = 1
+            checked: wizard.refreshRateProfile === 1
         }
         RadioButton {
             text:
               "<font size=\"4\" color=\"#ffff00\"><b>Smooth (30 Hz)</b></font>\n" +
               "<font color=\"white\">Use Average Resources</font>"
-            onClicked: loader.refreshRateProfile = 2
-            checked: loader.refreshRateProfile === 2
+            onClicked: wizard.refreshRateProfile = 2
+            checked: wizard.refreshRateProfile === 2
         }
         RadioButton {
             text:
               "<font size=\"4\" color=\"#00ba1c\"><b>Very Smooth (60 Hz)</b></font>\n" +
               "<font color=\"white\">Use Maximum Resources - </font><font color=\"#00ba1c\"><i>Recommended</i></font>"
-            onClicked: loader.refreshRateProfile = 3
-            checked: loader.refreshRateProfile === 3
+            onClicked: wizard.refreshRateProfile = 3
+            checked: wizard.refreshRateProfile === 3
         }
       }
     }
@@ -360,7 +373,7 @@ Rectangle {
       }
 
       Rectangle {
-          id: addressBar
+          id: inputBar
           width: parent.width
           height: 40
           color: 'white'
@@ -369,21 +382,21 @@ Rectangle {
 
           TextField {
               id: displayName
-              text: loader.displayName
+              text: wizard.displayName
               focus: true
-              width: addressBar.width - addressBar.anchors.leftMargin - addressBar.anchors.rightMargin;
+              width: inputBar.width - inputBar.anchors.leftMargin - inputBar.anchors.rightMargin;
               anchors {
-                  left: addressBar.left;
+                  left: inputBar.left;
                   leftMargin: 8;
-                  verticalCenter: addressBar.verticalCenter;
+                  verticalCenter: inputBar.verticalCenter;
               }
 
-              onTextChanged: loader.displayName = text
+              onTextChanged: wizard.displayName = text
               placeholderText: "Enter display name"
               verticalAlignment: TextInput.AlignBottom
               onAccepted: {
                 if (HMD.active) {
-                  addressBarDialog.keyboardEnabled = false;
+                  wizard.keyboardEnabled = false;
                 }
               }
 
@@ -402,7 +415,7 @@ Rectangle {
                   displayName.focus = true;
                   displayName.forceActiveFocus();
                   if (HMD.active) {
-                      addressBarDialog.keyboardEnabled = true;
+                      wizard.keyboardEnabled = true;
                   }
               }
           }
@@ -450,8 +463,8 @@ Rectangle {
     id: backButton
     text: "< Back"
     width: nextButton.width
-    anchors.bottom: rectLayout.bottom
-    anchors.left: rectLayout.left
+    anchors.bottom: wizard.bottom
+    anchors.left: wizard.left
     anchors.bottomMargin: 4 * hifi.layout.spacing
     anchors.leftMargin: 4 * hifi.layout.spacing
     visible: stepList.completed > 0
@@ -482,8 +495,8 @@ Rectangle {
   Button {
     id: nextButton
     text: "Continue >"
-    anchors.bottom: rectLayout.bottom
-    anchors.right: rectLayout.right
+    anchors.bottom: wizard.bottom
+    anchors.right: wizard.right
     anchors.bottomMargin: 4 * hifi.layout.spacing
     anchors.rightMargin: 4 * hifi.layout.spacing
     visible: stepList.completed < 4
@@ -517,8 +530,8 @@ Rectangle {
     id: completeButton
     text: "Complete"
     width: nextButton.width
-    anchors.bottom: rectLayout.bottom
-    anchors.right: rectLayout.right
+    anchors.bottom: wizard.bottom
+    anchors.right: wizard.right
     anchors.bottomMargin: 4 * hifi.layout.spacing
     anchors.rightMargin: 4 * hifi.layout.spacing
     visible: stepList.completed === 4
@@ -546,7 +559,7 @@ Rectangle {
     }
   }
 
-  HiFiControls.Keyboard {
+  HifiControls.Keyboard {
       id: keyboard
       raised: parent.keyboardEnabled && parent.keyboardRaised
       numeric: parent.punctuationMode
@@ -576,5 +589,11 @@ Rectangle {
     eventBridge.scriptEventReceived.connect(handleWebEvent);
     timer.setTimeout(function(){ initializeWizard(); }, 2000);
   }
+
+  Component.onDestruction: {
+    stop();
+  }
+
+  signal sendToScript(var message);
 
 }

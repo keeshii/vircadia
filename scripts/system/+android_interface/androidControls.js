@@ -17,14 +17,12 @@
   Script.include("/~/system/libraries/controllerDispatcherUtils.js");
   var DISPATCHER_TOUCH_PROPERTIES = ["id", "position", "rotation", "dimensions", "registrationPoint"];
 
-  var THROTTLE_TIME = 300;
+  var TAP_DELAY = 300;
 
   function AndroidControls() {
     this.onTouchStartFn = null;
     this.onTouchEndFn = null;
-    this.clickedEntityId = null;
     this.touchStartTime = 0;
-    this.touchEndTime = 0;
   }
 
   AndroidControls.prototype.intersectsOverlay = function (intersection) {
@@ -56,21 +54,14 @@
     return false;
   };
 
-  AndroidControls.prototype.triggerEvent = function (eventType, event) {
-    var info, entityId, pointerEvent, properties;
-    info = this.findRayIntersection(Camera.computePickRay(event.x, event.y));
-
-    if (!info && (eventType !== 'Release' || !this.clickedEntityId)) {
-      return;
-    }
-
-    pointerEvent = {
+  AndroidControls.prototype.createEventProperties = function (entityId, info, eventType) {
+    var pointerEvent = {
       type: eventType,
       id: 1,
       pos2D: {x: 0, y: 0},
-      pos3D: info ? info.obj.intersection : {x: 0, y: 0, z: 0},
-      normal: info ? info.obj.surfaceNormal : {x: 0, y: 0, z: 0},
-      direction: info ? info.obj.direction : {x: 0, y: 0, z: 0},
+      pos3D: info.obj.intersection,
+      normal: info.obj.surfaceNormal,
+      direction: info.obj.direction,
       button: "Primary",
       isPrimaryButton: true,
       isLeftButton: true,
@@ -80,53 +71,46 @@
       keyboardModifiers: 0
     };
 
-    if (!info) {
-      entityId = this.clickedEntityId;
-    } else if (info.type === "entity") {
-      entityId = info.obj.entityID;
-      properties = Entities.getEntityProperties(entityId, DISPATCHER_TOUCH_PROPERTIES);
-      if (properties.id === entityId) {
-        pointerEvent.pos2D = projectOntoEntityXYPlane(entityId, info.obj.intersection, properties);
-      }
-    } else {
-      entityId = info.obj.overlayID;
-      properties = Entities.getEntityProperties(entityId, DISPATCHER_TOUCH_PROPERTIES);
-      if (properties.id === entityId) {
-        pointerEvent.pos2D = projectOntoOverlayXYPlane(entityId, info.obj.intersection, properties);
-      }
+    var properties = Entities.getEntityProperties(entityId, DISPATCHER_TOUCH_PROPERTIES);
+    if (properties.id === entityId) {
+      pointerEvent.pos2D = info.type === "entity"
+        ? projectOntoEntityXYPlane(entityId, info.obj.intersection, properties)
+        : projectOntoOverlayXYPlane(entityId, info.obj.intersection, properties);
     }
 
-    if (eventType === 'Press') {
-      Entities.sendMousePressOnEntity(entityId, pointerEvent);
-      Entities.sendClickDownOnEntity(entityId, pointerEvent);
-      this.clickedEntityId = entityId;
-    }
-
-    if (eventType === 'Release') {
-      if (info) {
-        Entities.sendMouseReleaseOnEntity(entityId, pointerEvent);
-      }
-      if (this.clickedEntityId) {
-        Entities.sendClickReleaseOnEntity(this.clickedEntityId, pointerEvent);
-        this.clickedEntityId = null;
-      }
-    }
+    return pointerEvent;
   };
 
-  AndroidControls.prototype.onTouchStart = function (event) {
-    var now = Date.now();
-    if (this.touchStartTime + THROTTLE_TIME < now) {
-      this.touchStartTime = now;
-      this.triggerEvent('Press', event);
+  AndroidControls.prototype.triggerClick = function (event) {
+    var info = this.findRayIntersection(Camera.computePickRay(event.x, event.y));
+
+    if (!info) {
+      return;
     }
+
+    var entityId = info.type === "entity" ? info.obj.entityID : info.obj.overlayID;
+    var pressEvent = this.createEventProperties(entityId, info, 'Press');
+    var releaseEvent = this.createEventProperties(entityId, info, 'Release');
+
+    Entities.sendMousePressOnEntity(entityId, pressEvent);
+    Entities.sendClickDownOnEntity(entityId, pressEvent);
+
+    Script.setTimeout(function () {
+      Entities.sendMouseReleaseOnEntity(entityId, releaseEvent);
+      Entities.sendClickReleaseOnEntity(entityId, releaseEvent);
+    }, 75);
+  };
+
+  AndroidControls.prototype.onTouchStart = function (_event) {
+    this.touchStartTime = Date.now();
   };
 
   AndroidControls.prototype.onTouchEnd = function (event) {
     var now = Date.now();
-    if (this.touchEndTime + THROTTLE_TIME < now) {
-      this.touchEndTime = now;
-      this.triggerEvent('Release', event);
+    if (now - this.touchStartTime < TAP_DELAY) {
+      this.triggerClick(event);
     }
+    this.touchStartTime = 0;
   };
 
   AndroidControls.prototype.init = function () {
@@ -149,9 +133,7 @@
     if (this.onTouchEndFn) {
       Controller.touchEndEvent.disconnect(this.onTouchEndFn);
     }
-    this.clickedEntityId = null;
     this.touchStartTime = 0;
-    this.touchEndTime = 0;
     this.onTouchStartFn = null;
     this.onTouchEndFn = null;
   };
