@@ -8,18 +8,12 @@
 
 
 import QtQuick 2.5
-
 import QtWebView 1.1
-import stylesUit 1.0
-import controlsUit 1.0 as HifiControls
-
+import QtWebSockets 1.1
 
 Rectangle {
     id: root
     anchors.fill: parent
-    property string pluginName: ""
-    property var displayInformation: null
-    HifiConstants { id: hifi }
 
     WebView {
         id: webView
@@ -27,4 +21,8 @@ Rectangle {
         url: "https://metaverse.kuro.ryuu.eu"
     }
 
+    WebSocketServer {
+        id: webSocketServer
+        listen: false
+    }
 }
