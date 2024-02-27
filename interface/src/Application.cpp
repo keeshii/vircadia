@@ -168,6 +168,7 @@
 
 #include "AudioClient.h"
 #include "audio/AudioScope.h"
+#include "audio/HifiAudioBuffer.h"
 #include "avatar/AvatarManager.h"
 #include "avatar/MyHead.h"
 #include "avatar/AvatarPackager.h"
@@ -7557,6 +7558,7 @@ void Application::registerScriptEngineWithApplicationServices(const ScriptEngine
     scriptEngine->registerFunction("OverlayWebWindow", clientScript ? QmlWebWindowClass::constructor : QmlWebWindowClass::restricted_constructor);
 #endif
     scriptEngine->registerFunction("QmlFragment", clientScript ? QmlFragmentClass::constructor : QmlFragmentClass::restricted_constructor);
+    scriptEngine->registerFunction("HifiAudioBuffer", clientScript ? HifiAudioBuffer::constructor : HifiAudioBuffer::restricted_constructor);
 
     scriptEngine->registerGlobalObject("Menu", MenuScriptingInterface::getInstance());
     scriptEngine->registerGlobalObject("DesktopPreviewProvider", DependencyManager::get<DesktopPreviewProvider>().data());
