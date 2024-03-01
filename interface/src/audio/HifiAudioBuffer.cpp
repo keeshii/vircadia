@@ -1,22 +1,9 @@
 #include "HifiAudioBuffer.h"
 
 #include <qendian.h>
-
 #include "AudioClient.h"
-#include <QtScript/QScriptContext>
-#include <QtScript/QScriptEngine>
 
 static const qint64 MIN_BUFFER_SIZE = 44100;
-static const char* const CHANNELS_PROPERTY = "channels";
-static const char* const SAMPLE_RATE_PROPERTY = "sampleRate";
-static const char* const SAMPLE_SIZE_PROPERTY = "sampleSize";
-static const char* const BYTE_ORDER_PROPERTY = "byteOrder";
-static const char* const BYTE_ORDER_BIG_ENDIAN = "big";
-static const char* const SAMPLE_TYPE_PROPERTY = "sampleType";
-static const char* const SAMPLE_TYPE_INT = "int";
-static const char* const SAMPLE_TYPE_UINT = "uint";
-static const char* const SAMPLE_TYPE_FLOAT = "float";
-
 
 BufferIODevice::BufferIODevice(qint64 bufferSize) {
     m_bufferSize = bufferSize;
@@ -99,25 +86,18 @@ bool BufferIODevice::isPlaying() {
     return isOpen();
 }
 
-// Method called by Qt scripts to create a new web window in the overlay
-QScriptValue HifiAudioBuffer::internal_constructor(QScriptContext* context, QScriptEngine* engine, bool restricted) {
-    HifiAudioBuffer* retVal = new HifiAudioBuffer(restricted);
-    Q_ASSERT(retVal);
 
-    retVal->initAudioOutput(context);
-    Q_ASSERT(retVal->m_audioOutput);
-    Q_ASSERT(retVal->m_bufferDevice);
-
-    connect(retVal->m_bufferDevice.data(), &BufferIODevice::bufferEmpty, retVal, &HifiAudioBuffer::sendBufferEmpty);
-    connect(engine, &QScriptEngine::destroyed, retVal, &HifiAudioBuffer::deleteLater);
-
-    return engine->newQObject(retVal);
+HifiAudioBuffer::HifiAudioBuffer(QObject *parent)
+    : QObject{parent}
+{
+    m_audioFormat.setSampleRate(44100);
+    m_audioFormat.setChannelCount(1);
+    m_audioFormat.setSampleSize(32);
+    m_audioFormat.setCodec("audio/pcm");
+    m_audioFormat.setByteOrder(QAudioFormat::LittleEndian);
+    m_audioFormat.setSampleType(QAudioFormat::Float);
+    m_bufferSize = MIN_BUFFER_SIZE;
 }
-
-
-HifiAudioBuffer::HifiAudioBuffer(bool restricted) : _restricted(restricted) {
-}
-
 
 /*@jsdoc
  * Properties used to initialize an {@link HifiAudioBuffer}.
@@ -130,68 +110,21 @@ HifiAudioBuffer::HifiAudioBuffer(bool restricted) : _restricted(restricted) {
  * @property {string} [sampleType="float"] Data format.
  * Possible values: <code>int</code>, <code>uint</code> and <code>float</code>.
  */
-void HifiAudioBuffer::initAudioOutput(const QScriptContext* context) {
-    const auto argumentCount = context->argumentCount();
-
-    QAudioFormat format;
-    format.setSampleRate(44100);
-    format.setChannelCount(1);
-    format.setSampleSize(32);
-    format.setCodec("audio/pcm");
-    format.setByteOrder(QAudioFormat::LittleEndian);
-    format.setSampleType(QAudioFormat::Float);
-
-    qint64 bufferSize = MIN_BUFFER_SIZE;
-    if (argumentCount >= 1 && !context->argument(0).isUndefined()) {
-        bufferSize = context->argument(0).toInt32();
-    }
-
-    if (argumentCount >= 2 && !context->argument(1).isUndefined()) {
-        const QVariantMap properties = context->argument(1).toVariant().toMap();
-        if (!properties[SAMPLE_RATE_PROPERTY].isNull()) {
-            format.setSampleRate(properties[SAMPLE_RATE_PROPERTY].toUInt());
-        }
-        if (!properties[CHANNELS_PROPERTY].isNull()) {
-            format.setChannelCount(properties[CHANNELS_PROPERTY].toUInt());
-        }
-        if (!properties[SAMPLE_SIZE_PROPERTY].isNull()) {
-            format.setSampleSize(properties[SAMPLE_SIZE_PROPERTY].toUInt());
-        }
-        if (!properties[BYTE_ORDER_PROPERTY].isNull()) {
-            const QString byteOrder = properties[BYTE_ORDER_PROPERTY].toString();
-            if (QString::compare(byteOrder, BYTE_ORDER_BIG_ENDIAN, Qt::CaseInsensitive) == 0) {
-                format.setByteOrder(QAudioFormat::BigEndian);
-            }
-        }
-        if (!properties[SAMPLE_TYPE_PROPERTY].isNull()) {
-            const QString sampleType = properties[SAMPLE_TYPE_PROPERTY].toString();
-            if (QString::compare(sampleType, SAMPLE_TYPE_INT, Qt::CaseInsensitive) == 0) {
-                format.setSampleType(QAudioFormat::SignedInt);
-            } else if (QString::compare(sampleType, SAMPLE_TYPE_UINT, Qt::CaseInsensitive) == 0) {
-                format.setSampleType(QAudioFormat::UnSignedInt);
-            } else if (QString::compare(sampleType, SAMPLE_TYPE_FLOAT, Qt::CaseInsensitive) == 0) {
-                format.setSampleType(QAudioFormat::Float);
-            } else {
-                format.setSampleType(QAudioFormat::Unknown);
-            }
-        }
-    }
-
+void HifiAudioBuffer::initAudioDevice() {
     auto client = DependencyManager::get<AudioClient>().data();
     const QAudioDeviceInfo &deviceInfo = client->getActiveAudioDevice(QAudio::AudioOutput).getDevice();
 
-    if (bufferSize < MIN_BUFFER_SIZE) {
-      bufferSize = MIN_BUFFER_SIZE;
-      qDebug() << "HifiAudioBuffer::initAudioOutput: incorrect buffer size, fallback to default";
-    }
-
-    if (!deviceInfo.isFormatSupported(format)) {
+    if (!deviceInfo.isFormatSupported(m_audioFormat)) {
         qDebug() << "HifiAudioBuffer::initAudioOutput: Audio format not supported";
-        format = deviceInfo.nearestFormat(format);
+        m_audioFormat = deviceInfo.nearestFormat(m_audioFormat);
     }
 
-    m_audioOutput.reset(new QAudioOutput(deviceInfo, format));
-    m_bufferDevice.reset(new BufferIODevice(bufferSize));
+    if (m_bufferSize < MIN_BUFFER_SIZE) {
+        m_bufferSize = MIN_BUFFER_SIZE;
+    }
+
+    m_audioOutput.reset(new QAudioOutput(deviceInfo, m_audioFormat));
+    m_bufferDevice.reset(new BufferIODevice(m_bufferSize));
 }
 
 
@@ -201,6 +134,9 @@ HifiAudioBuffer::~HifiAudioBuffer() {
 
 
 void HifiAudioBuffer::setPlaying(bool playing) {
+    if (!m_bufferDevice || !m_audioOutput) {
+      return;
+    }
     if (playing) {
         m_bufferDevice->start();
         m_audioOutput->start(m_bufferDevice.data());
@@ -213,11 +149,17 @@ void HifiAudioBuffer::setPlaying(bool playing) {
 
 
 bool HifiAudioBuffer::isPlaying() {
+    if (!m_bufferDevice) {
+      return false;
+    }
     return m_bufferDevice->isPlaying();
 }
 
 void HifiAudioBuffer::setVolume(const qreal volume) {
     qreal newVolume = volume;
+    if (!m_audioOutput) {
+      return;
+    }
     if (newVolume < 0.0) {
       newVolume = 0.0;
     } else if (newVolume >= 1.0) {
@@ -228,17 +170,108 @@ void HifiAudioBuffer::setVolume(const qreal volume) {
 }
 
 qreal HifiAudioBuffer::getVolume() {
+    if (!m_audioOutput) {
+      return 0.0;
+    }
     return m_audioOutput->volume();
 }
 
 qint64 HifiAudioBuffer::remainingBuffer() {
+    if (!m_bufferDevice) {
+      return 0;
+    }
     return m_bufferDevice->remainingBuffer();
 }
 
 void HifiAudioBuffer::write(const QByteArray& data) {
+    if (!m_bufferDevice) {
+      return;
+    }
     m_bufferDevice->writeData(data.constData(), data.size());
 }
 
 void HifiAudioBuffer::sendBufferEmpty() {
     emit bufferEmpty();
+}
+
+qint32 HifiAudioBuffer::getChannels() {
+    return m_audioFormat.channelCount();
+}
+
+qint32 HifiAudioBuffer::getSampleRate() {
+    return m_audioFormat.sampleRate();
+}
+
+qint32 HifiAudioBuffer::getSampleSize() {
+    return m_audioFormat.sampleSize();
+}
+
+HifiAudioBuffer::SampleType HifiAudioBuffer::getSampleType() {
+    switch (m_audioFormat.sampleType()) {
+        case QAudioFormat::SignedInt:
+            return SampleType::Int;
+        case QAudioFormat::UnSignedInt:
+            return SampleType::UnsignedInt;
+        case QAudioFormat::Float:
+            return SampleType::Float;
+        case QAudioFormat::Unknown:
+            return SampleType::Float;
+    }
+    return SampleType::Float;
+}
+
+HifiAudioBuffer::ByteOrder HifiAudioBuffer::getByteOrder() {
+
+    switch (m_audioFormat.byteOrder()) {
+        case QAudioFormat::LittleEndian:
+            return ByteOrder::LittleEndian;
+        case QAudioFormat::BigEndian:
+            return ByteOrder::BigEndian;
+    }
+    return ByteOrder::LittleEndian;
+}
+
+qint64 HifiAudioBuffer::getBufferSize() {
+    return m_bufferSize;
+}
+
+void HifiAudioBuffer::setChannels(const qint32 channels) {
+    m_audioFormat.setChannelCount(channels);
+}
+
+void HifiAudioBuffer::setSampleRate(const qint32 sampleRate) {
+    m_audioFormat.setSampleRate(sampleRate);
+}
+
+void HifiAudioBuffer::setSampleSize(const qint32 sampleSize) {
+    m_audioFormat.setSampleSize(sampleSize);
+}
+
+void HifiAudioBuffer::setSampleType(const SampleType sampleType) {
+    switch (sampleType) {
+        case SampleType::Int:
+            m_audioFormat.setSampleType(QAudioFormat::SignedInt);
+            break;
+        case SampleType::UnsignedInt:
+            m_audioFormat.setSampleType(QAudioFormat::UnSignedInt);
+            break;
+        case SampleType::Float:
+            m_audioFormat.setSampleType(QAudioFormat::Float);
+            break;
+    }
+}
+
+void HifiAudioBuffer::setByteOrder(const ByteOrder byteOrder) {
+    switch (byteOrder) {
+        case ByteOrder::LittleEndian:
+            m_audioFormat.setByteOrder(QAudioFormat::LittleEndian);
+            break;
+        case ByteOrder::BigEndian:
+            m_audioFormat.setByteOrder(QAudioFormat::BigEndian);
+            break;
+    }
+}
+
+void HifiAudioBuffer::setBufferSize(const qint64 bufferSize) {
+    m_bufferSize = bufferSize;
 }

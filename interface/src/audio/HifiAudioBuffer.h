@@ -7,9 +7,6 @@
 #include <QBuffer>
 #include <QByteArray>
 
-#include <QtScript/QScriptValue>
-#include <QtScript/QScriptContext>
-
 
 class BufferIODevice: public QIODevice {
     Q_OBJECT
@@ -60,29 +57,34 @@ class HifiAudioBuffer : public QObject {
     Q_PROPERTY(bool playing READ isPlaying WRITE setPlaying NOTIFY playingChanged)
     Q_PROPERTY(qreal volume READ getVolume WRITE setVolume NOTIFY volumeChanged)
 
+    Q_PROPERTY(qint32 channels READ getChannels WRITE setChannels)
+    Q_PROPERTY(qint32 sampleRate READ getSampleRate WRITE setSampleRate)
+    Q_PROPERTY(qint32 sampleSize READ getSampleSize WRITE setSampleSize)
+    Q_PROPERTY(SampleType sampleType READ getSampleType WRITE setSampleType)
+    Q_PROPERTY(ByteOrder byteOrder READ getByteOrder WRITE setByteOrder)
+    Q_PROPERTY(qint64 bufferSize READ getBufferSize WRITE setBufferSize)
 
 private:
-    static QScriptValue internal_constructor(QScriptContext* context, QScriptEngine* engine, bool restricted);
-
-    void initAudioOutput(const QScriptContext* context);
-
     QScopedPointer<BufferIODevice> m_bufferDevice;
 
     QScopedPointer<QAudioOutput> m_audioOutput;
 
-    const bool _restricted;
+    QAudioFormat m_audioFormat;
+
+    qint64 m_bufferSize;
 
 public:
-    static QScriptValue constructor(QScriptContext* context, QScriptEngine* engine) {
-        return internal_constructor(context, engine, false);
-    }
+    enum SampleType { Int = 0, UnsignedInt = 1, Float = 2 };
+    enum ByteOrder { LittleEndian = 0, BigEndian = 1 };
 
-    static QScriptValue restricted_constructor(QScriptContext* context, QScriptEngine* engine ){
-        return internal_constructor(context, engine, true);
-    }
+    Q_ENUM(ByteOrder);
+    Q_ENUM(SampleType);
 
-    HifiAudioBuffer(bool restricted);
+    explicit HifiAudioBuffer(QObject *parent = nullptr);
+
     ~HifiAudioBuffer();
+
+    Q_INVOKABLE void initAudioDevice();
 
     /*@jsdoc
      * @function HifiAudioBuffer.remainingBuffer
@@ -134,6 +136,20 @@ public:
     Q_INVOKABLE void write(const QByteArray& data);
 
 public slots:
+
+    qint32 getChannels();
+    qint32 getSampleRate();
+    qint32 getSampleSize();
+    SampleType getSampleType();
+    ByteOrder getByteOrder();
+    qint64 getBufferSize();
+
+    void setChannels(const qint32 channels);
+    void setSampleRate(const qint32 sampleRate);
+    void setSampleSize(const qint32 sampleSize);
+    void setSampleType(const SampleType sampleType);
+    void setByteOrder(const ByteOrder byteOrder);
+    void setBufferSize(const qint64 bufferSize);
 
     /*@jsdoc
      * Gets whether the audio buffer is playing.
