@@ -81,6 +81,27 @@
     return pointerEvent;
   };
 
+  AndroidControls.prototype.updateKeyboardFocus = function (entityId, type) {
+    var properties, overlayType;
+    if (type === 'entity') {
+      Overlays.setKeyboardFocusOverlay(Uuid.NULL);
+      properties = Entities.getEntityProperties(entityId, ['type', 'sourceUrl']);
+      if (properties.type && properties.type === 'Web' && properties.sourceUrl) {
+        Entities.setKeyboardFocusEntity(entityId);
+      } else {
+        Entities.setKeyboardFocusEntity(Uuid.NULL);
+      }
+    } else if (type === 'overlay') {
+      Entities.setKeyboardFocusEntity(Uuid.NULL);
+      overlayType = Overlays.getOverlayType(entityId);
+      if (overlayType === 'web3d') {
+        Overlays.setKeyboardFocusOverlay(entityId);
+      } else {
+        Overlays.setKeyboardFocusOverlay(Uuid.NULL);
+      }
+    }
+  };
+
   AndroidControls.prototype.triggerClick = function (event) {
     var info = this.findRayIntersection(Camera.computePickRay(event.x, event.y));
 
@@ -92,6 +113,7 @@
     var pressEvent = this.createEventProperties(entityId, info, 'Press');
     var releaseEvent = this.createEventProperties(entityId, info, 'Release');
 
+    this.updateKeyboardFocus(entityId, info.type);
     Entities.sendMousePressOnEntity(entityId, pressEvent);
     Entities.sendClickDownOnEntity(entityId, pressEvent);
 

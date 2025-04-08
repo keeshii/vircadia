@@ -5,7 +5,7 @@
         "avatarEntites": [
         ],
         "avatarScale": 1,
-        "avatarUrl": "https://metaverse.kuro.ryuu.eu/public/avatars/Woody/mannequin.fst",
+        "avatarUrl": "qrc:////meshes/defaultAvatar_full.fst",
         "version": 3
     },
     "Kim": {

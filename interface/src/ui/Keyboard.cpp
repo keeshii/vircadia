@@ -577,14 +577,8 @@ void Keyboard::handleSpecialKey(Key::Type keyType) {
     // Qt automatically remaps ⌘A, ⌘C, etc. to ^A and ^C on macOS
     QKeyEvent* pressEvent = new QKeyEvent(QEvent::KeyPress, keyCode, keyMod);
     QKeyEvent* releaseEvent = new QKeyEvent(QEvent::KeyRelease, keyCode, keyMod);
-
-    if (_inputToHudUI) {
-        QCoreApplication::postEvent(qApp->getPrimaryWidget(), pressEvent);
-        QCoreApplication::postEvent(qApp->getPrimaryWidget(), releaseEvent);
-    } else {
-        QCoreApplication::postEvent(QCoreApplication::instance(), pressEvent);
-        QCoreApplication::postEvent(QCoreApplication::instance(), releaseEvent);
-    }
+    QCoreApplication::postEvent(QCoreApplication::instance(), pressEvent);
+    QCoreApplication::postEvent(QCoreApplication::instance(), releaseEvent);
 
     _typedCharacters.clear();
     updateTextDisplay();

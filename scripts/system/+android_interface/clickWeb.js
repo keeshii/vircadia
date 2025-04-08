@@ -69,21 +69,13 @@ function touchEnd(event) {
         var propertiesToGet = {};
         propertiesToGet[touchOverlayID] = ['url'];
         var properties = Overlays.getOverlaysProperties(propertiesToGet);
-        if (properties[touchOverlayID].url) {
-            if (!properties[touchOverlayID].url.match(/\.qml$/)) {
-                Window.openUrl(properties[touchOverlayID].url);
-            } else {
-                Overlays.setKeyboardFocusOverlay(touchOverlayID);
-            }
+        if (properties[touchOverlayID].url && !properties[touchOverlayID].url.match(/\.qml$/)) {
+            Window.openUrl(properties[touchOverlayID].url);
         }
     } else if (intersection && intersection.type == 'entity' && touchEntityID == intersection.obj.entityID) {
         var properties = Entities.getEntityProperties(touchEntityID, ["sourceUrl"]);
-        if (properties.sourceUrl) {
-            if (!properties.sourceUrl.match(/\.qml$/)) {
-                Window.openUrl(properties.sourceUrl);
-            } else {
-                Entities.setKeyboardFocusEntity(touchEntityID);
-            }
+        if (properties.sourceUrl && !properties.sourceUrl.match(/\.qml$/)) {
+            Window.openUrl(properties.sourceUrl);
         }
     }
 

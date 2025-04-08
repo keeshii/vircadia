@@ -31,7 +31,7 @@ EMOTE_ANIMATIONS.forEach(function (name) {
 });
 
 
-var EMOTE_APP_BASE = "html/EmoteApp.html";
+var EMOTE_APP_BASE = "html/EmoteApp.qml";
 var EMOTE_APP_URL = Script.resolvePath(EMOTE_APP_BASE);
 var EMOTE_LABEL = "EMOTE";
 var EMOTE_APP_SORT_ORDER = 12;
@@ -57,7 +57,7 @@ function onClicked() {
         tablet.gotoHomeScreen();
     } else {
         onEmoteScreen = true;
-        tablet.gotoWebScreen(EMOTE_APP_URL);
+        tablet.loadQMLSource(EMOTE_APP_URL);
     }
 }
 
@@ -68,7 +68,6 @@ function onScreenChanged(type, url) {
 
 // Handle the events we're receiving from the web UI
 function onWebEventReceived(event) {
-
     // Converts the event to a JavasScript Object
     if (typeof event === "string") {
         event = JSON.parse(event);
@@ -158,7 +157,7 @@ eventMapping.from(Controller.Standard.Start).peek().to(restoreAnimation);
 
 button.clicked.connect(onClicked);
 tablet.screenChanged.connect(onScreenChanged);
-tablet.webEventReceived.connect(onWebEventReceived);
+tablet.fromQml.connect(onWebEventReceived);
 
 Script.scriptEnding.connect(function () {
     if (onEmoteScreen) {
@@ -166,6 +165,7 @@ Script.scriptEnding.connect(function () {
     }
     button.clicked.disconnect(onClicked);
     tablet.screenChanged.disconnect(onScreenChanged);
+    tablet.fromQml.disconnect(onWebEventReceived);
     if (tablet) {
         tablet.removeButton(button);
     }

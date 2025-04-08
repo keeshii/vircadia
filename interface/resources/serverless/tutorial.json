@@ -2199,14 +2199,14 @@
     "isFacingAvatar": false
 },
     {
-    "id": "{b65da22f-09d9-4ad5-96c8-5c0d154cf422}",
+    "id": "{7255ad04-42c4-46a9-8de6-4510829ca02c}",
     "type": "Text",
-    "lastEdited": 1695100582124295,
+    "lastEdited": 1744138574688700,
     "name": "Avatar_Viewer_Sign",
     "position": {
-        "x": 23.6486,
-        "y": 0.3432,
-        "z": -0.6114
+        "x": 42.49474567871094,
+        "y": 0.5193442106246948,
+        "z": 10.07717743225098
     },
     "dimensions": {
         "x": 1.044848918914795,
@@ -2214,17 +2214,17 @@
         "z": 0.009999999776482582
     },
     "rotation": {
-        "x": 0.5223942995071411,
-        "y": -0.3033091723918915,
-        "z": -0.20580066740512848,
-        "w": -0.769905149936676
+        "x": 0.14060033857822418,
+        "y": 0.80113685131073,
+        "z": 0.5435718894004822,
+        "w": -0.207222118973732
     },
-    "created": 1695100426374695,
-    "lastEditedBy": "{f8725648-3a97-4d5a-a288-ef885578e5ff}",
+    "created": 1744138307550265,
+    "lastEditedBy": "{16a16c0d-07ab-45bf-9664-0c77fa7beae6}",
     "queryAACube": {
-        "x": 3.9460952281951904,
-        "y": -0.3549167513847351,
-        "z": 1.7459592819213867,
+        "x": 41.58794021606445,
+        "y": -0.04016238451004028,
+        "z": 5.708141326904297,
         "scale": 1.1190131902694702
     },
     "grab": {
@@ -2247,14 +2247,14 @@
     "isFacingAvatar": false
 },
     {
-    "id": "{4557dafc-955f-49e8-a2df-7c95594cbd42}",
+    "id": "{6f153a47-85a5-4044-8e6e-b34f343895e6}",
     "type": "Text",
-    "lastEdited": 1695100582124532,
+    "lastEdited": 1744138574688324,
     "name": "Avatar_Viewer_Sign",
     "position": {
-        "x": 19.1430,
-        "y": 0.3421,
-        "z": -0.7638
+        "x": 41.256868786621094,
+        "y": 0.5204441547393799,
+        "z": 14.412044784545898
     },
     "dimensions": {
         "x": 1.044848918914795,
@@ -2262,17 +2262,17 @@
         "z": 0.009999999776482582
     },
     "rotation": {
-        "x": 0.5149025917053223,
-        "y": 0.32993587851524353,
-        "z": 0.2238616943359375,
-        "w": -0.7588831782341003
+        "x": 0.4837910830974579,
+        "y": 0.41995769739151,
+        "z": 0.28494876623153687,
+        "w": -0.7130118012428284
     },
-    "created": 1695100426374790,
-    "lastEditedBy": "{f8725648-3a97-4d5a-a288-ef885578e5ff}",
+    "created": 1744138307550085,
+    "lastEditedBy": "{16a16c0d-07ab-45bf-9664-0c77fa7beae6}",
     "queryAACube": {
-        "x": -0.5595065951347351,
-        "y": -0.3560153841972351,
-        "z": 1.5935041904449463,
+        "x": 40.35006332397461,
+        "y": -0.039062440395355225,
+        "z": 10.043038368225098,
         "scale": 1.1190131902694702
     },
     "grab": {
@@ -2295,15 +2295,57 @@
     "isFacingAvatar": false
 },
     {
-    "id": "{55d0bd05-9023-4c00-bf2c-a74ac085e9e2}",
+    "id": "{3944ea0a-5cff-413f-9892-c62a4d3bbf0d}",
+    "type": "Model",
+    "lastEdited": 1744138574687505,
+    "name": "AVATAR_VIEWER_PLATFORM",
+    "position": {
+        "x": 44.02007409362793,
+        "y": 0.31584417819976807,
+        "z": 12.85900110778809
+    },
+    "dimensions": {
+        "x": 7,
+        "y": 0.27500930428504944,
+        "z": 7
+    },
+    "rotation": {
+        "x": 0,
+        "y": -0.9902681112289429,
+        "z": 0,
+        "w": -0.13917313516139984
+    },
+    "created": 1744138307550667,
+    "lastEditedBy": "{16a16c0d-07ab-45bf-9664-0c77fa7beae6}",
+    "queryAACube": {
+        "x": 38.72108459472656,
+        "y": -4.635812759399414,
+        "z": 4.097933292388916,
+        "scale": 9.903313636779785
+    },
+    "grab": {
+        "grabbable": false
+    },
+    "shapeType": "static-mesh",
+    "modelURL": "qrc:///serverless/Models/avatarStand.fst",
+    "blendshapeCoefficients": "{\n}\n",
+    "useOriginalPivot": true,
+    "clientOnly": false,
+    "avatarEntity": false,
+    "localEntity": false,
+    "faceCamera": false,
+    "isFacingAvatar": false
+},
+    {
+    "id": "{6c463557-31ab-46c8-997c-cd9dedf96e14}",
     "type": "Shape",
-    "lastEdited": 1695100608899187,
+    "lastEdited": 1744138574687981,
     "visible": false,
     "name": "AVATAR_VIEWER_TRIGGER",
     "position": {
-        "x": 21.4733,
-        "y": 1.8112,
-        "z": -2.9168
+        "x": 44.02007409362793,
+        "y": 1.988444209098816,
+        "z": 12.85990110778809
     },
     "dimensions": {
         "x": 12,
@@ -2312,17 +2354,17 @@
     },
     "rotation": {
         "x": 0,
-        "y": 0,
+        "y": -0.7880107760429382,
         "z": 0,
-        "w": 1
+        "w": 0.6156614422798157
     },
-    "created": 1695100426374834,
-    "lastEditedBy": "{f8725648-3a97-4d5a-a288-ef885578e5ff}",
+    "created": 1744138307550440,
+    "lastEditedBy": "{16a16c0d-07ab-45bf-9664-0c77fa7beae6}",
     "queryAACube": {
-        "x": -4.878309726715088,
-        "y": -5.5359883308410645,
-        "z": -7.2085957527160645,
-        "scale": 14.417191505432129
+        "x": 36.46414566040039,
+        "y": -5.220151901245117,
+        "z": 1.840993881225586,
+        "scale": 14.417192459106445
     },
     "grab": {
         "grabbable": false
@@ -2336,48 +2378,6 @@
         "blue": 0
     },
     "shape": "Cylinder",
-    "clientOnly": false,
-    "avatarEntity": false,
-    "localEntity": false,
-    "faceCamera": false,
-    "isFacingAvatar": false
-},
-    {
-    "id": "{b762d045-94ce-4831-841b-4404d38ab3b1}",
-    "type": "Model",
-    "lastEdited": 1695100582125019,
-    "name": "AVATAR_VIEWER_PLATFORM",
-    "position": {
-        "x": 21.4733,
-        "y": 0.1386,
-        "z": -2.9168
-    },
-    "dimensions": {
-        "x": 7,
-        "y": 0.27500930428504944,
-        "z": 7
-    },
-    "rotation": {
-        "x": 0,
-        "y": -0.7193397879600525,
-        "z": 0,
-        "w": 0.6946583390235901
-    },
-    "created": 1695100426374741,
-    "lastEditedBy": "{f8725648-3a97-4d5a-a288-ef885578e5ff}",
-    "queryAACube": {
-        "x": -2.621370792388916,
-        "y": -4.951656818389893,
-        "z": -4.951656818389893,
-        "scale": 9.903313636779785
-    },
-    "grab": {
-        "grabbable": false
-    },
-    "shapeType": "static-mesh",
-    "modelURL": "qrc:///serverless/Models/avatarStand.fst",
-    "blendshapeCoefficients": "{\n}\n",
-    "useOriginalPivot": true,
     "clientOnly": false,
     "avatarEntity": false,
     "localEntity": false,

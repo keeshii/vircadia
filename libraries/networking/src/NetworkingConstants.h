@@ -33,8 +33,8 @@ namespace NetworkingConstants {
     const QUrl METAVERSE_SERVER_URL_STAGING { "https://metaverse.kuro.ryuu.eu/live" };
 
     // Web Engine requests to this parent domain have an account authorization header added
-    const QString AUTH_HOSTNAME_BASE = "vircadia.com";
-    const QStringList IS_AUTHABLE_HOSTNAME = { "vircadia.com", "vircadia.io" };
+    const QString AUTH_HOSTNAME_BASE = "metaverse.kuro.ryuu.eu";
+    const QStringList IS_AUTHABLE_HOSTNAME = { "metaverse.kuro.ryuu.eu", "kuro.ryuu.eu" };
     
     // Use a custom User-Agent to avoid ModSecurity filtering, e.g. by hosting providers.
     const QByteArray VIRCADIA_USER_AGENT = "Mozilla/5.0 (VircadiaInterface)";
@@ -43,7 +43,7 @@ namespace NetworkingConstants {
     const QString MOBILE_USER_AGENT = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) " + WEB_ENGINE_VERSION + " Mobile Safari/537.36";
     
     // WebEntity Defaults
-    const QString WEB_ENTITY_DEFAULT_SOURCE_URL = "https://vircadia.com/";
+    const QString WEB_ENTITY_DEFAULT_SOURCE_URL = "https://metaverse.kuro.ryuu.eu/docs/";
     const QString WEB_ENTITY_DEFAULT_USER_AGENT = WEB_ENGINE_USER_AGENT;
     
     // Builds URLs
@@ -53,28 +53,28 @@ namespace NetworkingConstants {
     const QString DEFAULT_AVATAR_COLLISION_SOUND_URL = "https://hifi-public.s3.amazonaws.com/sounds/Collisions-otherorganic/Body_Hits_Impact.wav";
 
     // CDN URLs
-    const QString HF_CONTENT_CDN_URL = "https://cdn-1.vircadia.com/eu-c-1/vircadia-content/";
-    const QString HF_MPASSETS_CDN_URL = "https://cdn-1.vircadia.com/eu-c-1/vircadia-mpassets/";
-    const QString HF_PUBLIC_CDN_URL = "https://cdn-1.vircadia.com/eu-c-1/vircadia-public/";
+    const QString HF_CONTENT_CDN_URL = "https://metaverse.kuro.ryuu.eu/public/cdn/vircadia-content/";
+    const QString HF_MPASSETS_CDN_URL = "https://metaverse.kuro.ryuu.eu/public/cdn/vircadia-mpassets/";
+    const QString HF_PUBLIC_CDN_URL = "https://metaverse.kuro.ryuu.eu/public/cdn/vircadia-public/";
     const QString HF_MARKETPLACE_CDN_HOSTNAME = "mpassets.highfidelity.com";
-    const QString VIRCADIA_CONTENT_CDN_URL = "https://cdn-1.vircadia.com/us-e-1/";
+    const QString VIRCADIA_CONTENT_CDN_URL = "https://metaverse.kuro.ryuu.eu/public/cdn/";
 
 #if USE_STABLE_GLOBAL_SERVICES
-    const QString ICE_SERVER_DEFAULT_HOSTNAME = "ice.vircadia.com";
+    const QString ICE_SERVER_DEFAULT_HOSTNAME = "kuro.ryuu.eu";
 
     const QString STUN_SERVER_DEFAULT_HOSTNAME = "stun1.l.google.com";
     const unsigned short STUN_SERVER_DEFAULT_PORT = 19302;
 #else
-    const QString ICE_SERVER_DEFAULT_HOSTNAME = "ice.vircadia.com";
+    const QString ICE_SERVER_DEFAULT_HOSTNAME = "kuro.ryuu.eu";
 
     const QString STUN_SERVER_DEFAULT_HOSTNAME = "stun2.l.google.com";
     const unsigned short STUN_SERVER_DEFAULT_PORT = 19302;
 #endif
 
-    const QUrl HELP_DOCS_URL { "https://docs.vircadia.dev" };
-    const QUrl HELP_FORUM_URL { "https://forums.vircadia.dev" };
-    const QUrl HELP_SCRIPTING_REFERENCE_URL{ "https://apidocs.vircadia.dev/" };
-    const QUrl HELP_RELEASE_NOTES_URL{ "https://docs.vircadia.dev/release-notes.html" };
+    const QUrl HELP_DOCS_URL { "https://metaverse.kuro.ryuu.eu/docs/" };
+    const QUrl HELP_FORUM_URL { "https://metaverse.kuro.ryuu.eu/docs/" };
+    const QUrl HELP_SCRIPTING_REFERENCE_URL{ "https://metaverse.kuro.ryuu.eu/apidocs/" };
+    const QUrl HELP_RELEASE_NOTES_URL{ "https://metaverse.kuro.ryuu.eu/docs/release-notes.html" };
     const QUrl HELP_BUG_REPORT_URL{ "https://github.com/vircadia/vircadia/issues" };
     
     const QString DEFAULT_VIRCADIA_ADDRESS = "file:///~/serverless/tutorial.json";
