@@ -67,15 +67,23 @@ function touchEnd(event) {
     var intersection = findRayIntersection(Camera.computePickRay(event.x, event.y));
     if (intersection && intersection.type == 'overlay' && touchOverlayID == intersection.obj.overlayID) {
         var propertiesToGet = {};
-        propertiesToGet[overlayID] = ['url'];
+        propertiesToGet[touchOverlayID] = ['url'];
         var properties = Overlays.getOverlaysProperties(propertiesToGet);
-        if (properties[overlayID].url && !properties[overlayID].url.match(/\.qml$/)) {
-            Window.openUrl(properties[overlayID].url);
+        if (properties[touchOverlayID].url) {
+            if (!properties[touchOverlayID].url.match(/\.qml$/)) {
+                Window.openUrl(properties[touchOverlayID].url);
+            } else {
+                Overlays.setKeyboardFocusOverlay(touchOverlayID);
+            }
         }
     } else if (intersection && intersection.type == 'entity' && touchEntityID == intersection.obj.entityID) {
         var properties = Entities.getEntityProperties(touchEntityID, ["sourceUrl"]);
-        if (properties.sourceUrl && !properties.sourceUrl.match(/\.qml$/)) {
-            Window.openUrl(properties.sourceUrl);
+        if (properties.sourceUrl) {
+            if (!properties.sourceUrl.match(/\.qml$/)) {
+                Window.openUrl(properties.sourceUrl);
+            } else {
+                Entities.setKeyboardFocusEntity(touchEntityID);
+            }
         }
     }
 
